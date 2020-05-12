@@ -14,6 +14,7 @@ var deathTimer = -1
 
 var onHurtboxArea = false
 
+
 func _ready():
 	pass
 	
@@ -50,35 +51,4 @@ func getHit(attackID, attackDamage):
 func attack(attackID, attackDamage):
 	self.attackID = attackID
 	self.attackDamage = attackDamage
-	
-
-	
-
-#func _on_hurtbox_area_entered(area: Area2D) -> void:
-#	if area.is_in_group("sword"):
-#		life -= 5
-#		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
-#		if not tween.is_active():
-#			tween.start()
-#		if life < 1:
-#			if deathTimer < 0:
-#				deathTimer = maxDeathTimer
-#				$"AnimatedSprite".animation = "die"
-#		#self.queue_free()
-#	if area.is_in_group("sword1"):
-#		life -= 10
-#		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
-#		if not tween.is_active():
-#			tween.start()
-#		if life < 1:
-#			if deathTimer < 0:
-#				deathTimer = maxDeathTimer
-#				$"AnimatedSprite".animation = "die"
-		
-
-
-		
-
-
-
 
