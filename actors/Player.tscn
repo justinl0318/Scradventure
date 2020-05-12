@@ -1,0 +1,201 @@
+[gd_scene load_steps=56 format=2]
+
+[ext_resource path="res://actors/Player.gd" type="Script" id=1]
+[ext_resource path="res://sprites/adventurer/adventurer-idle-00.png" type="Texture" id=2]
+[ext_resource path="res://sprites/adventurer/adventurer-idle-01.png" type="Texture" id=3]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-slide-00.png" type="Texture" id=4]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-slide-01.png" type="Texture" id=5]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-00.png" type="Texture" id=6]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-01.png" type="Texture" id=7]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-02.png" type="Texture" id=8]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-03.png" type="Texture" id=9]
+[ext_resource path="res://sprites/adventurer/adventurer-run-00.png" type="Texture" id=10]
+[ext_resource path="res://sprites/adventurer/adventurer-run-01.png" type="Texture" id=11]
+[ext_resource path="res://sprites/adventurer/adventurer-run-02.png" type="Texture" id=12]
+[ext_resource path="res://sprites/adventurer/adventurer-run-03.png" type="Texture" id=13]
+[ext_resource path="res://sprites/adventurer/adventurer-run-04.png" type="Texture" id=14]
+[ext_resource path="res://sprites/adventurer/adventurer-run-05.png" type="Texture" id=15]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-00.png" type="Texture" id=16]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-01.png" type="Texture" id=17]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-02.png" type="Texture" id=18]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-03.png" type="Texture" id=19]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-04.png" type="Texture" id=20]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-05.png" type="Texture" id=21]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack2-00.png" type="Texture" id=22]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack2-01.png" type="Texture" id=23]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack2-02.png" type="Texture" id=24]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack1-00.png" type="Texture" id=25]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack1-01.png" type="Texture" id=26]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack1-02.png" type="Texture" id=27]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack1-03.png" type="Texture" id=28]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-00.png" type="Texture" id=29]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-01.png" type="Texture" id=30]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-02.png" type="Texture" id=31]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-03.png" type="Texture" id=32]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-04.png" type="Texture" id=33]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-05.png" type="Texture" id=34]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-00.png" type="Texture" id=35]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-01.png" type="Texture" id=36]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-02.png" type="Texture" id=37]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-03.png" type="Texture" id=38]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-00.png" type="Texture" id=39]
+[ext_resource path="res://Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-01.png" type="Texture" id=40]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-00.png" type="Texture" id=41]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-01.png" type="Texture" id=42]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-02.png" type="Texture" id=43]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-03.png" type="Texture" id=44]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-04.png" type="Texture" id=45]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-00.png" type="Texture" id=46]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-01.png" type="Texture" id=47]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-02.png" type="Texture" id=48]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-03.png" type="Texture" id=49]
+[ext_resource path="res://sprites/white.png" type="Texture" id=50]
+[ext_resource path="res://Copy of Full Sound Loop.wav" type="AudioStream" id=51]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "slide",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "shoot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "attack1",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ],
+"loop": true,
+"name": "airattack1",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "airattack0",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ) ],
+"loop": true,
+"name": "attack2",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ) ],
+"loop": true,
+"name": "crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 39 ), ExtResource( 40 ) ],
+"loop": true,
+"name": "airattack2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "attack0",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ) ],
+"loop": true,
+"name": "jump",
+"speed": 6.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 16.8547, 28.7504 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 20, 18, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 0.653922
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 25.0
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20.9884, 33.4982 )
+
+[node name="player" type="KinematicBody2D"]
+light_mask = 2
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+animation = "idle"
+playing = true
+
+[node name="idleCollision" type="CollisionShape2D" parent="."]
+position = Vector2( -1.20105, 5.40472 )
+shape = SubResource( 2 )
+
+[node name="DebugLabel" type="Label" parent="."]
+margin_left = -19.6717
+margin_top = 41.7039
+margin_right = 20.3283
+margin_bottom = 55.7039
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_top = -100
+limit_bottom = 720
+limit_smoothed = true
+
+[node name="PositionFireball" type="Position2D" parent="."]
+position = Vector2( 28.4965, 9.60555 )
+
+[node name="Light2D" type="Light2D" parent="."]
+show_behind_parent = true
+light_mask = 2
+position = Vector2( 8.30178, -6.62366 )
+scale = Vector2( 2.93836, 2.4701 )
+texture = ExtResource( 50 )
+energy = 1.1
+
+[node name="Particles2D" type="Particles2D" parent="."]
+show_behind_parent = true
+position = Vector2( 3.23221, -0.587677 )
+rotation = -1.5708
+amount = 16
+lifetime = 5.0
+local_coords = false
+process_material = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="PositionPortal" type="Position2D" parent="."]
+position = Vector2( 28.8031, 1.20013 )
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 51 )
+volume_db = 10.0
+
+[node name="hitbox" type="Area2D" parent="." groups=[
+"sword",
+]]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( 27.1587, -2.64043 )
+shape = SubResource( 4 )
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]
