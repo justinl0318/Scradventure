@@ -129,7 +129,7 @@ func _physics_process(delta: float) -> void:
 		self.anim.scale = Vector2(0.03 + opacity*0.02, 0.03 + opacity*0.02)
 		self.particlesOrbit.get_process_material().set(\"emission_sphere_radius\", 40 + launchTimerTemp*0.03)
 		$\"CollisionShape2D\".scale = Vector2(1 + opacity*0.02, 1 + opacity*0.02)
-		$hitbox/damage.scale = Vector2(1 + opacity, 1 + opacity)
+		$bullet/damage.scale = Vector2(1 + opacity, 1 + opacity)
 
 		
 		#light.scale = Vector2(0.6 + opacity * 0.02, 0.6 + opacity * 0.02)
@@ -152,7 +152,7 @@ func setLaunchTimer(time:int):
 	self.launchTimerTemp = time
 	
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area.is_in_group(\"hurtbox\"):
+	if area.get_name() == \"hurtbox\":
 		if dyingTimer >= dyingTimerMax:
 			self.queue_free()
 		else:
@@ -234,16 +234,16 @@ modulate = Color( 0, 0.345098, 1, 1 )
 show_behind_parent = true
 position = Vector2( -0.778015, -2.33408 )
 frames = SubResource( 5 )
-frame = 59
+frame = 68
 speed_scale = 10.0
 playing = true
 
-[node name="hitbox" type="Area2D" parent="." groups=[
+[node name="bullet" type="Area2D" parent="." groups=[
 "sword1",
 ]]
 editor/display_folded = true
 
-[node name="damage" type="CollisionShape2D" parent="hitbox"]
+[node name="damage" type="CollisionShape2D" parent="bullet"]
 position = Vector2( 0.194504, -0.778027 )
 shape = SubResource( 6 )
 
@@ -253,4 +253,4 @@ show_behind_parent = true
 amount = 6
 process_material = SubResource( 9 )
 texture = ExtResource( 93 )
-[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="bullet" to="." method="_on_hitbox_area_entered"]

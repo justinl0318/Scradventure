@@ -4,7 +4,6 @@ var gravity = 800
 const gravity2 = 10
 const floorNormal = Vector2(0,-1)
 const Fireball = preload("res://Fireball.tscn")
-var mob = preload("res://Mob1.tscn").instance()
 const attackTimerMax = [40, 40, 80]
 const attackComboMax = 3
 const shootingTimerMax = 80
@@ -22,6 +21,7 @@ onready var portalPos = $"PositionPortal"
 onready var posrasengan = $"PositionRasengan"
 var states = []
 onready var DebugLabel = $"DebugLabel"
+onready var lifebar = $"lifebar"
 
 var jumpCount = 0
 
@@ -38,6 +38,7 @@ var teleportcooldownTimer = 100
 
 var hitboxEnter = false
 var targetEnemy 
+
 
 func _ready():
 	pass
@@ -181,7 +182,7 @@ func _physics_process(delta):
 	if teleportcooldownTimer < 0:
 		for i in get_slide_count():
 			var collision = get_slide_collision(i)
-			if collision.collider.name != "TileMap" and collision.collider.name != "TileMap2" and collision.collider.name != "Mob1":
+			if collision.collider.name != "TileMap" and collision.collider.name != "TileMap2" and collision.collider.name != "Mob1" and collision.collider.name != "Rasengan":
 				if portals.size() > 1:
 
 					var targetPortal 
@@ -193,10 +194,7 @@ func _physics_process(delta):
 					self.position.y = targetPortal.position.y - 50
 					teleportcooldownTimer = 100
 					
-#	if states.has("attack"):
-#		$hitbox/CollisionShape2D.disabled = false
-#	else:
-#		$hitbox/CollisionShape2D.disabled = true
+
 	if shootingDirection == 1:
 		$hitbox/CollisionShape2D.position.x = 27
 	else:
@@ -205,6 +203,8 @@ func _physics_process(delta):
 	if states.has("attack"):
 		if hitboxEnter:
 			targetEnemy.getHit(attackCombo,attackDamge[attackCombo])
+
+		
 		
 			
 	
@@ -243,6 +243,7 @@ func _physics_process(delta):
 	
 	anim.animation = animName
 	
+	
 func shoot():
 	var rasengan = preload("res://Rasengan.tscn").instance()
 	rasengan.setDirection(shootingDirection)
@@ -259,16 +260,18 @@ func isInAction():
 		
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	hitboxEnter = true
-	targetEnemy = area.get_owner()
+	
+	if area.get_name() == "hurtbox":
+		hitboxEnter = true
+		targetEnemy = area.get_owner()
+	#targetEnemy = area.get_owner()
 #	area.get_owner().getHit(attackCombo,attackDamge[attackCombo])
 
 func _on_hitbox_area_exited(area: Area2D) -> void:
 	hitboxEnter = false
-
-
 	
-
+func beingHit():
+	lifebar.value -= 20
 
 
 
