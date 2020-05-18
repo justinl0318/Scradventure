@@ -1,5 +1,5 @@
 extends KinematicBody2D
-const maxlife = 20.0
+var maxlife = 20.0
 const maxDamageResetTimer = 40
 const maxDeathTimer = 100
 const gravity = 800
@@ -46,12 +46,8 @@ func _process(delta: float) -> void:
 			queue_free()
 	
 	#ChasePlayer
-	if playerEnter == true:
-		vector = (targetPlayer.position - self.position)
-		if vector.x < 0 :
-			anim.set_flip_h(false)
-		else:
-			anim.set_flip_h(true)
+	if playerEnter:
+		vector = interceptPlayer(vector)
 	
 	vector.y += gravity 
 		
@@ -145,3 +141,11 @@ func _on_mobhit_area_entered(area: Area2D) -> void:
 		hitPlayer = area.get_owner()
 		hitPlayer.beingHit()
 		anim.animation = "attack"
+
+func interceptPlayer(vector: Vector2) -> Vector2:
+		vector = (targetPlayer.position - self.position)
+		if vector.x < 0 :
+			anim.set_flip_h(false)
+		else:
+			anim.set_flip_h(true)
+		return vector

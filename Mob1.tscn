@@ -34,14 +34,14 @@ animations = [ {
 "name": "die",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "move",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
 "loop": true,
 "name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "move",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
@@ -84,7 +84,7 @@ script = ExtResource( 1 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 1 )
 animation = "attack"
-frame = 4
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -107,7 +107,6 @@ value = 100.0
 [node name="hurtbox" type="Area2D" parent="." groups=[
 "hurtbox",
 ]]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2( 0.319687, 7.67254 )
@@ -115,13 +114,11 @@ rotation = 1.5708
 shape = SubResource( 6 )
 
 [node name="detection" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection"]
 shape = SubResource( 7 )
 
 [node name="mobhit" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mobhit"]
 position = Vector2( -1.9774, 7.90959 )
