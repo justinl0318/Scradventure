@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Copy of Full Sound Loop.wav-37b6ff0f20c9f4f9bed7efc68f040623.sample"
+
+[deps]
+
+source_file="res://Music/Copy of Full Sound Loop.wav"
+dest_files=[ "res://.import/Copy of Full Sound Loop.wav-37b6ff0f20c9f4f9bed7efc68f040623.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
