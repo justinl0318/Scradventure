@@ -3,7 +3,7 @@ extends KinematicBody2D
 var gravity = 800
 const gravity2 = 10
 const floorNormal = Vector2(0,-1)
-const Fireball = preload("res://Fireball.tscn")
+const Fireball = preload("res://Projectiles/Fireball.tscn")
 const attackTimerMax = [40, 40, 80]
 const attackComboMax = 3
 const shootingTimerMax = 80
@@ -166,7 +166,7 @@ func _physics_process(delta):
 	
 #Portal
 	if Input.is_action_just_pressed("shootPortal"):
-		var portal = preload("res://Portal.tscn").instance()
+		var portal = preload("res://Projectiles/Portal.tscn").instance()
 		portals.append(portal)
 		if portals.size() > 2:
 			portals.front().queue_free()
@@ -184,13 +184,12 @@ func _physics_process(delta):
 			var collision = get_slide_collision(i)
 			if collision.collider.name != "TileMap" and collision.collider.name != "TileMap2" and collision.collider.name != "Mob1" and collision.collider.name != "Rasengan":
 				if portals.size() > 1:
-
 					var targetPortal 
 					if collision.collider == portals[0]:
 						targetPortal = portals[1]
 					elif collision.collider == portals[1]:
 						targetPortal = portals[0]
-					self.position.x = targetPortal.position.x
+  					self.position.x = targetPortal.position.x
 					self.position.y = targetPortal.position.y - 50
 					teleportcooldownTimer = 100
 					
@@ -245,7 +244,7 @@ func _physics_process(delta):
 	
 	
 func shoot():
-	var rasengan = preload("res://Rasengan.tscn").instance()
+	var rasengan = preload("res://Projectiles/Rasengan.tscn").instance()
 	rasengan.setDirection(shootingDirection)
 	rasengan.setLaunchTimer(shootingTimerMax)
 	rasengan.position = self.position
