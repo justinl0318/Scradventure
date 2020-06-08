@@ -26,6 +26,7 @@ var hitPlayer
 var walktimer = 300
 var walktimer2 = 0
 var change
+var gap 
 
 
 func _ready():
@@ -44,17 +45,24 @@ func _process(delta: float) -> void:
 		deathTimer -= 1
 		if deathTimer == 0:
 			queue_free()
+			
+			for i in range(5):
+				var xp = preload("res://XP.tscn").instance()
+				xp.position.x = rand_range(self.position.x - 10, self.position.x + 10)
+				xp.position.y = rand_range(self.position.y - 10, self.position.y -5)
+				get_parent().add_child(xp)
+
 	
 	#ChasePlayer
 	if playerEnter:
-		vector = interceptPlayer(vector)
-	
-	vector.y += gravity 
-		
-	#Automove
-	if deathTimer < 0:
-		anim.animation = "move"
-		if playerEnter == false:
+		if lifebar.value > 0:
+			vector = interceptPlayer(vector)
+			gap = (gravity*0.2) - vector.y
+			vector.y += gap
+	else:
+		vector.y += gravity * 0.2
+		if deathTimer < 0:
+			anim.animation = "move"
 			if walktimer >= 0:
 				walktimer -= 1
 				vector.x = -100
@@ -68,7 +76,12 @@ func _process(delta: float) -> void:
 				change = walktimer
 				walktimer = walktimer2
 				walktimer2 = change
-		move_and_slide(vector * 0.5, floorNormal)
+	move_and_slide(vector * 0.5, floorNormal)
+	
+		
+	#Automove
+#	
+		
 	
 	
 func getHit(attackID, attackDamage):
@@ -88,30 +101,6 @@ func getHit(attackID, attackDamage):
 	
 				
 
-	
-
-	
-
-#func _on_hurtbox_area_entered(area: Area2D) -> void:
-#	if area.is_in_group("sword"):
-#		life -= 5
-#		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
-#		if not tween.is_active():
-#			tween.start()
-#		if life < 1:
-#			if deathTimer < 0:
-#				deathTimer = maxDeathTimer
-#				$"AnimatedSprite".animation = "die"
-#		#self.queue_free()
-#	if area.is_in_group("sword1"):
-#		life -= 10
-#		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
-#		if not tween.is_active():
-#			tween.start()
-#		if life < 1:
-#			if deathTimer < 0:
-#				deathTimer = maxDeathTimer
-#				$"AnimatedSprite".animation = "die"
 
 func _on_detection_area_entered(area: Area2D) -> void:
 	if area.get_name() == "collision":

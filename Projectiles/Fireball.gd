@@ -6,16 +6,15 @@ var shootTimer = 1
 
 
 func _ready():
-	$Particles2D.process_material.gravity = Vector3(50,0,0)
-	$Particles2D.process_material.gravity = Vector3(-50,0,0)
+	pass
 	
 func set_fireball_direction(dir):
 	direction = dir
 	if dir == -1:
 		$AnimatedSprite.flip_h = true
-		$Particles2D.process_material.gravity = Vector3(50,0,0)
+		$Particles2D.process_material.gravity = Vector3(90,0,0)
 	else:
-		$Particles2D.process_material.gravity = Vector3(-50,0,0)
+		$Particles2D.process_material.gravity = Vector3(-90,0,0)
 		
 		
 

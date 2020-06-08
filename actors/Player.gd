@@ -15,10 +15,9 @@ var moveSpeed = 300
 var jumpForce = 500
 
 var vector = Vector2()
-onready var pos = $"PositionFireball"
+onready var pos = $"PositionProjectile"
 onready var anim = $"AnimatedSprite"
 onready var portalPos = $"PositionPortal"
-onready var posrasengan = $"PositionRasengan"
 var states = []
 onready var DebugLabel = $"DebugLabel"
 onready var lifebar = $"lifebar"
@@ -35,9 +34,22 @@ var attackTimer = attackTimerMax[attackCombo]
 
 var portals = []
 var teleportcooldownTimer = 100
+var touchPortal = false
+var portalname 
 
 var hitboxEnter = false
 var targetEnemy 
+
+var currentXp = 0
+var level = 1
+var maxXp = 100
+var xp = 0
+
+var mana = 0
+var currentmana = 0
+
+var life = 100
+var currentlife = 100
 
 
 func _ready():
@@ -45,6 +57,8 @@ func _ready():
 
 
 func _physics_process(delta):
+	
+	
 	
 	if Input.is_action_just_pressed("slide"):
 		if not states.has("dash") and states.has("run"):
@@ -73,8 +87,6 @@ func _physics_process(delta):
 		anim.set_flip_h(false)
 		if sign(pos.position.x) == -1:
 			pos.position.x *= -1
-		if sign(portalPos.position.x) == -1:
-			portalPos.position.x *= -1
 		shootingDirection = 1
 	elif Input.is_action_pressed("ui_left"):
 		if not states.has("run"):
@@ -83,8 +95,6 @@ func _physics_process(delta):
 		anim.set_flip_h(true)	
 		if sign(pos.position.x) == 1:
 			pos.position.x *= -1
-		if sign(portalPos.position.x) == 1:
-			portalPos.position.x *= -1
 		shootingDirection = -1
 	else:
 		if states.has("run"):
@@ -103,10 +113,17 @@ func _physics_process(delta):
 				
 #shooting
 	if Input.is_action_just_pressed("rasengan"):
-		if not states.has("shooting"):
-			states.append("shooting")
-			shoot()
+		if $"ManaBar".value >= 20:
+			if not states.has("shooting"):
+				states.append("shooting")
+				shoot()
+				mana = currentmana
+				mana -= 20
+				$"Tween".interpolate_property(self, "currentmana", currentmana, mana, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
+				if not $"Tween".is_active():
+					$"Tween".start()
 
+	
 	if states.has("shooting"):
 		moveSpeed = 0
 		gravity = 10
@@ -154,14 +171,12 @@ func _physics_process(delta):
 #Shooting
 	if Input.is_action_just_pressed("fireball"):
 		var fireball = Fireball.instance()
-		if sign(pos.position.x) == 1:
+		if shootingDirection == 1:
 			fireball.set_fireball_direction(1)
 		else:
 			fireball.set_fireball_direction(-1)
 		get_parent().add_child(fireball)
 		fireball.position = pos.global_position
-		
-		
 
 	
 #Portal
@@ -171,27 +186,25 @@ func _physics_process(delta):
 		if portals.size() > 2:
 			portals.front().queue_free()
 			portals.remove(0)
-		if sign(portalPos.position.x) == 1:
+		if shootingDirection == 1:
 			portal.set_portal_direction(1)
 		else:
 			portal.set_portal_direction(-1)
 		get_parent().add_child(portal)
-		portal.position = portalPos.global_position
-	
+		portal.position = pos.global_position
+
 	teleportcooldownTimer -= 1
-	if teleportcooldownTimer < 0:
-		for i in get_slide_count():
-			var collision = get_slide_collision(i)
-			if collision.collider.name != "TileMap" and collision.collider.name != "TileMap2" and collision.collider.name != "Mob1" and collision.collider.name != "Rasengan":
-				if portals.size() > 1:
-					var targetPortal 
-					if collision.collider == portals[0]:
-						targetPortal = portals[1]
-					elif collision.collider == portals[1]:
-						targetPortal = portals[0]
-  					self.position.x = targetPortal.position.x
-					self.position.y = targetPortal.position.y - 50
-					teleportcooldownTimer = 100
+	if teleportcooldownTimer < 0:	
+		if touchPortal == true:
+			if portals.size() > 1:
+				var targetPortal
+				if portalname == portals[0]:
+					targetPortal = portals[1]
+				elif portalname == portals[1]:
+					targetPortal = portals[0]			
+				self.position.x = targetPortal.position.x
+				self.position.y = targetPortal.position.y - 50
+				teleportcooldownTimer = 100
 					
 
 	if shootingDirection == 1:
@@ -203,7 +216,22 @@ func _physics_process(delta):
 		if hitboxEnter:
 			targetEnemy.getHit(attackCombo,attackDamge[attackCombo])
 
+#XP
+	checklevelUp()
+	$"XPbar".value = currentXp
+	$"level".text = str(level)
+	$"lifebar".value = life
+	
+#Mana
+	if states.empty():
+		$"manacharge".enabled = true
+		currentmana += 1
+		if currentmana >= 100:
+			currentmana = 100
+	else:
+		$"manacharge".enabled = false
 		
+	$"ManaBar".value = currentmana
 		
 			
 	
@@ -220,7 +248,7 @@ func _physics_process(delta):
 		$"Light2D".enabled = false
 		
 	#$"Music".play()
-
+	
 
 #Animation  
 
@@ -241,6 +269,7 @@ func _physics_process(delta):
 
 	
 	anim.animation = animName
+	
 	
 	
 func shoot():
@@ -270,7 +299,43 @@ func _on_hitbox_area_exited(area: Area2D) -> void:
 	hitboxEnter = false
 	
 func beingHit():
-	lifebar.value -= 20
+	currentlife = life
+	life -= 20
+	$"Tween".interpolate_property(self, "life", currentlife, life, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	if not $"Tween".is_active():
+		$"Tween".start()
+
+func _on_collision_area_entered(area: Area2D) -> void:
+	if area.get_name() == "Xpcollision":
+		xp = currentXp
+		currentXp += 20
+		area.get_owner().queue_free()
+		area.get_owner().playSound()
+		$"XP".play(0)
+		$"Tween".interpolate_property(self, "xp", xp, currentXp, 0.2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		if not $"Tween".is_active():
+			$"Tween".start()
+	if area.get_name() == "Portalcollision":
+		touchPortal = true
+		portalname = area.get_owner()
+
+func _on_collision_area_exited(area: Area2D) -> void:
+	if area.get_name() == "Portalcollision":
+		touchPortal = false
+			
+func checklevelUp():
+	if currentXp >= maxXp:
+		level += 1
+		maxXp += (currentXp * 0.1)
+		currentXp = 0
+		$"XPbar".max_value = maxXp
+	
+
+	
+		
+		
+
+
 
 
 

@@ -25,6 +25,7 @@ func _physics_process(delta: float) -> void:
 		$"AnimatedSprite".rotation_degrees = -90
 		$"AnimatedSprite".scale = Vector2(0.04, 0.1)
 		$"CollisionShape2D".rotation_degrees = -90
+		$Portalcollision/CollisionShape2D.rotation_degrees = -90
 	else:
 		vector.x = throwSpeed * delta * direction
 	if is_on_wall():
@@ -39,6 +40,7 @@ func _physics_process(delta: float) -> void:
 		vector.x = 0
 		$"AnimatedSprite".rotation_degrees = -90
 		$"CollisionShape2D".rotation_degrees = -90
+		$Portalcollision/CollisionShape2D.rotation_degrees = -90
 		$"AnimatedSprite".scale = Vector2(0.04, 0.1)
 				
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Enemies/Mob1.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Slime/Individual Sprites/slime-idle-0.png" type="Texture" id=2]
@@ -64,17 +64,13 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="BitmapFont" id=5]
-height = 0.0
-ascent = 10.0
-
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=5]
 height = 24.506
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=6]
 radius = 230.256
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=7]
 radius = 39.836
 
 [node name="Mob1" type="KinematicBody2D"]
@@ -84,7 +80,7 @@ script = ExtResource( 1 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 1 )
 animation = "attack"
-frame = 4
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -99,8 +95,8 @@ margin_right = 19.0
 margin_bottom = -13.0
 theme = SubResource( 3 )
 custom_styles/fg = SubResource( 4 )
-custom_fonts/font = SubResource( 5 )
 value = 100.0
+percent_visible = false
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -112,20 +108,20 @@ editor/display_folded = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2( 0.319687, 7.67254 )
 rotation = 1.5708
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="detection" type="Area2D" parent="."]
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection"]
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="mobhit" type="Area2D" parent="."]
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mobhit"]
 position = Vector2( -1.9774, 7.90959 )
-shape = SubResource( 8 )
+shape = SubResource( 7 )
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]
 [connection signal="area_entered" from="detection" to="." method="_on_detection_area_entered"]

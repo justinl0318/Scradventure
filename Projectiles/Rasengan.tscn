@@ -94,9 +94,6 @@
 [ext_resource path="res://Particles/ezgif-2-c0096846be72-png-100x100-sprite-png/tile090.png" type="Texture" id=92]
 [ext_resource path="res://Particles/particlePack_1.1/PNG (Transparent)/twirl_02.png" type="Texture" id=93]
 
-
-
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
@@ -120,7 +117,7 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	if launchTimerTemp <= 0:
-		self.velocity.x = delta * speed * direction / 0.016667
+		self.velocity.x = delta * speed * self.direction / 0.016667
 
 	else:
 		self.launchTimerTemp -= 1
@@ -237,7 +234,7 @@ modulate = Color( 0, 0.345098, 1, 1 )
 show_behind_parent = true
 position = Vector2( -0.778015, -2.33408 )
 frames = SubResource( 5 )
-frame = 68
+frame = 42
 speed_scale = 10.0
 playing = true
 

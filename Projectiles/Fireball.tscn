@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Projectiles/Fireball.gd" type="Script" id=1]
 [ext_resource path="res://Objects/FB00_nyknck/FB001.png" type="Texture" id=2]
@@ -6,10 +6,6 @@
 [ext_resource path="res://Objects/FB00_nyknck/FB003.png" type="Texture" id=4]
 [ext_resource path="res://Objects/FB00_nyknck/FB004.png" type="Texture" id=5]
 [ext_resource path="res://Objects/FB00_nyknck/FB005.png" type="Texture" id=6]
-[ext_resource path="res://Particles/particlePack_1.1/PNG (Transparent)/smoke_04.png" type="Texture" id=7]
-
-
-
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -20,7 +16,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 10.467
+radius = 15.7117
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.0153846, 0.984615 )
@@ -33,13 +29,14 @@ gradient = SubResource( 3 )
 emission_shape = 1
 emission_sphere_radius = 10.0
 flag_disable_z = true
-gravity = Vector3( 0, -10, 0 )
-angular_velocity = -3.68935e+19
+gravity = Vector3( -90, 0, 0 )
+angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 100.0
 linear_accel_random = 1.0
-scale = 0.05
+radial_accel = 10.0
+scale = 3.5
 color_ramp = SubResource( 4 )
 
 [node name="Fireball" type="Area2D"]
@@ -48,9 +45,10 @@ self_modulate = Color( 0.717647, 0.513726, 0.513726, 1 )
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -5.78098, 2.0482 )
-scale = Vector2( 0.689963, 1.1427 )
+position = Vector2( -6.39699, 3.28028 )
+scale = Vector2( 0.82472, 1.60473 )
 frames = SubResource( 1 )
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -62,10 +60,9 @@ shape = SubResource( 2 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 show_behind_parent = true
-rotation = -1.5708
-amount = 50
-lifetime = 10.0
+position = Vector2( -5.5188, 1.28315 )
+amount = 150
+lifetime = 1.5
 process_material = SubResource( 5 )
-texture = ExtResource( 7 )
 [connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

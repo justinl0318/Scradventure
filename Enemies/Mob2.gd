@@ -11,8 +11,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
-func interceptPlayer(vector: Vector2) -> Vector2:
-	vector.x = 0
-	vector.y = 0
-	return vector
+#func interceptPlayer(vector: Vector2) -> Vector2:
+#	vector.x = 0
+#	vector.y = 0
+#	return vector
 	
