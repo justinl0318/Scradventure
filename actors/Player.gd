@@ -3,7 +3,7 @@ extends KinematicBody2D
 var gravity = 800
 const gravity2 = 10
 const floorNormal = Vector2(0,-1)
-const Fireball = preload("res://Projectiles/Fireball.tscn")
+const Fireball = preload("res://actors/Projectiles/Fireball.tscn")
 const attackTimerMax = [40, 40, 80]
 const attackComboMax = 3
 const shootingTimerMax = 80
@@ -181,7 +181,7 @@ func _physics_process(delta):
 	
 #Portal
 	if Input.is_action_just_pressed("shootPortal"):
-		var portal = preload("res://Projectiles/Portal.tscn").instance()
+		var portal = preload("res://actors/Projectiles/Portal.tscn").instance()
 		portals.append(portal)
 		if portals.size() > 2:
 			portals.front().queue_free()
@@ -224,12 +224,13 @@ func _physics_process(delta):
 	
 #Mana
 	if states.empty():
-		$"manacharge".enabled = true
-		currentmana += 1
-		if currentmana >= 100:
-			currentmana = 100
-	else:
+		if currentmana <= 100:
+			currentmana += 0.3
+	
+	if currentmana >= 100:
 		$"manacharge".enabled = false
+	else:
+		$"manacharge".enabled = true
 		
 	$"ManaBar".value = currentmana
 		
@@ -273,7 +274,7 @@ func _physics_process(delta):
 	
 	
 func shoot():
-	var rasengan = preload("res://Projectiles/Rasengan.tscn").instance()
+	var rasengan = preload("res://actors/Projectiles/Rasengan.tscn").instance()
 	rasengan.setDirection(shootingDirection)
 	rasengan.setLaunchTimer(shootingTimerMax)
 	rasengan.position = self.position

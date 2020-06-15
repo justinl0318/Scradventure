@@ -5,7 +5,7 @@
 [ext_resource path="res://Enemies/Mob1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/Mob2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enemies/Mob3.tscn" type="PackedScene" id=5]
-[ext_resource path="res://XP.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/Projectiles/XP.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Interface.tscn" type="PackedScene" id=7]
 
 [node name="Scene" type="Node2D"]

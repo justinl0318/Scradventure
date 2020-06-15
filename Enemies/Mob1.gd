@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 			queue_free()
 			
 			for i in range(5):
-				var xp = preload("res://XP.tscn").instance()
+				var xp = preload("res://actors/Projectiles/XP.tscn").instance()
 				xp.position.x = rand_range(self.position.x - 10, self.position.x + 10)
 				xp.position.y = rand_range(self.position.y - 10, self.position.y -5)
 				get_parent().add_child(xp)
