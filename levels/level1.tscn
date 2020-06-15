@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://tiles/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Enemies/Mob3.tscn" type="PackedScene" id=5]
 [ext_resource path="res://actors/Projectiles/XP.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Interface.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/EnemyTank1.tscn" type="PackedScene" id=8]
 
 [node name="Scene" type="Node2D"]
 __meta__ = {
@@ -49,3 +50,6 @@ position = Vector2( 100.242, 417.167 )
 position = Vector2( 144.289, 417.167 )
 
 [node name="Interface" parent="." instance=ExtResource( 7 )]
+
+[node name="EnemyTank1" parent="." instance=ExtResource( 8 )]
+position = Vector2( 229.336, 303.463 )
