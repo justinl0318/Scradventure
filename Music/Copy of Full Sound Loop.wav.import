@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Copy of Full Sound Loop.wav-37b6ff0f20c9f4f9bed7efc68f040623.sample"
+path="res://.import/Copy of Full Sound Loop.wav-1e37f2c01a71355f2b8cc9af72510225.sample"
 
 [deps]
 
-source_file="res://Music/Copy of Full Sound Loop.wav"
-dest_files=[ "res://.import/Copy of Full Sound Loop.wav-37b6ff0f20c9f4f9bed7efc68f040623.sample" ]
+source_file="res://music/Copy of Full Sound Loop.wav"
+dest_files=[ "res://.import/Copy of Full Sound Loop.wav-1e37f2c01a71355f2b8cc9af72510225.sample" ]
 
 [params]
 

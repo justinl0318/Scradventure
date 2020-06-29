@@ -38,5 +38,4 @@ position = Vector2( 144.289, 417.167 )
 
 [node name="EnemyTank1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 610.679, 542.641 )
-mode = 0
 gravity_scale = 1.0

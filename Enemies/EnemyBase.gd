@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 onready var anim
 
@@ -9,6 +9,7 @@ var actionRange = 100
 var movespeed = 100
 var playerEnter = false
 var vector = Vector2()
+var vectorNormal = Vector2(0, -1)
 var targetPlayer
 
 # Declare member variables here. Examples:
@@ -42,10 +43,11 @@ func _standby():
 		# patrol
 	if playerEnter == true:
 		vector = targetPlayer.position - self.position
-		linear_velocity = vector
+		move_and_slide(vector, vectorNormal)
+#		linear_velocity = vector
 
-		if linear_velocity.y <= 0:
-			gravity_scale = linear_velocity.y * -1
+#		if linear_velocity.y <= 0:
+#			gravity_scale = linear_velocity.y * -1
 		#linear_velocity.x = 200
 		#linear_velocity.y = 0
 	
