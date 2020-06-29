@@ -1,13 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://tiles/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Enemies/Mob1.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Enemies/Mob2.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Enemies/Mob3.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/Projectiles/XP.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Interface.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Enemies/EnemyTank1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/Projectiles/XP.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/EnemyTank1.tscn" type="PackedScene" id=4]
 
 [node name="Scene" type="Node2D"]
 __meta__ = {
@@ -22,34 +18,25 @@ tile_data = PoolIntArray( -262148, 9, 0, -327624, 9, 0, -196612, 8, 0, -196609, 
 [node name="KinematicBody2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 302.803, 527.338 )
 
-[node name="Mob1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 858.159, 562.411 )
-
-[node name="Mob2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 646.523, 542.29 )
-
-[node name="Mob3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 489.8, 560.8 )
-
-[node name="XP" parent="." instance=ExtResource( 6 )]
+[node name="XP" parent="." instance=ExtResource( 3 )]
 position = Vector2( 168.836, 470.036 )
 
-[node name="XP2" parent="." instance=ExtResource( 6 )]
+[node name="XP2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 108.767, 485.369 )
 
-[node name="XP3" parent="." instance=ExtResource( 6 )]
+[node name="XP3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 108.767, 462.635 )
 
-[node name="XP4" parent="." instance=ExtResource( 6 )]
+[node name="XP4" parent="." instance=ExtResource( 3 )]
 position = Vector2( 149.972, 448.426 )
 
-[node name="XP5" parent="." instance=ExtResource( 6 )]
+[node name="XP5" parent="." instance=ExtResource( 3 )]
 position = Vector2( 100.242, 417.167 )
 
-[node name="XP6" parent="." instance=ExtResource( 6 )]
+[node name="XP6" parent="." instance=ExtResource( 3 )]
 position = Vector2( 144.289, 417.167 )
 
-[node name="Interface" parent="." instance=ExtResource( 7 )]
-
-[node name="EnemyTank1" parent="." instance=ExtResource( 8 )]
-position = Vector2( 229.336, 303.463 )
+[node name="EnemyTank1" parent="." instance=ExtResource( 4 )]
+position = Vector2( 610.679, 542.641 )
+mode = 0
+gravity_scale = 1.0
