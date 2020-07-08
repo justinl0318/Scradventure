@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 onready var anim
 
+const attackCoolDownTimerMax = 100
+const hitTimerMax = 100
+
 var numberOfMoves = 3
 var state = [] # attacking = damage player when touhing hitbox; inaction = currently on move; 
 var detectionRange = 100
@@ -11,6 +14,16 @@ var playerEnter = false
 var vector = Vector2()
 var vectorNormal = Vector2(0, -1)
 var targetPlayer
+var gravity = 800
+var canAttack = false
+var attackCoolDownTimer = 0
+
+var walktimer = 300
+var walktimer2 = 0
+var change
+
+var hitTimer = 0
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -24,12 +37,27 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	_testfunction()
-	if not self.state.has("inaction"):
-		_standby()
-	#var distance = 
-	# if has state attacking and player is touching hitbox: damange
-
+	
+	if hitTimer > 0:
+		hitTimer -= 1
+		#add vector against player
+		#beingHitanimation
+	else:
+		_testfunction()
+		if not self.state.has("inaction"):
+			_standby()
+		#var distance = 
+		# if has state attacking and player is touching hitbox: damange
+		if attackCoolDownTimer > 0:
+			attackCoolDownTimer -= 1
+	if vector.x < 0:
+		anim.set_flip_h(false)
+	else:
+		anim.set_flip_h(true)
+	move_and_slide(vector, vectorNormal)
+	
+	
+	
 func _testfunction():
 	#print(numberOfMoves)
 	pass
@@ -42,15 +70,34 @@ func _standby():
 	# else:
 		# patrol
 	if playerEnter == true:
-		vector = targetPlayer.position - self.position
-		move_and_slide(vector, vectorNormal)
-#		linear_velocity = vector
+		pursuit()
+		if canAttack and attackCoolDownTimer == 0:
+			targetPlayer.beingHit()
+			attackCoolDownTimer = attackCoolDownTimerMax
+	else:
+		patrol()
+		
 
-#		if linear_velocity.y <= 0:
-#			gravity_scale = linear_velocity.y * -1
-		#linear_velocity.x = 200
-		#linear_velocity.y = 0
-	
+func patrol():
+	anim.animation = "walk"
+	if walktimer >= 0:
+		walktimer -= 1
+		vector.x = -100
+	if walktimer == -1:
+		if walktimer2 < 300:
+			walktimer2 += 1
+			vector.x = 100		
+	if walktimer2 == 300:
+		change = walktimer
+		walktimer = walktimer2
+		walktimer2 = change
+
+
+
+func pursuit():
+#	vector = targetPlayer.position - self.position
+#	move_and_slide(vector, vectorNormal)
+	pass
 
 func choooseAttack():
 	var random = randi()%numberOfMoves
@@ -67,14 +114,25 @@ func doAttack(attackNumber:int):
 			pass
 		2:
 			pass
+		
 
 
-func _on_EnemyTankDetection_area_entered(area: Area2D) -> void:
+func _on_EnemyDetectionRange_area_entered(area: Area2D) -> void:
 	if area.get_name() == "collision":
 		playerEnter = true
 		targetPlayer = area.get_owner()
 
 
-func _on_EnemyTankDetection_area_exited(area: Area2D) -> void:
+func _on_EnemyDetectionRange_area_exited(area: Area2D) -> void:
 	if area.get_name() == "collision":
 		playerEnter = false
+
+
+func _on_HitBoxRange_area_entered(area: Area2D) -> void:
+	if area.get_name() == "collision":
+		canAttack = true
+
+
+func _on_HitBoxRange_area_exited(area: Area2D) -> void:
+	if area.get_name() == "collision":
+		canAttack = false

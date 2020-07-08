@@ -58,8 +58,6 @@ func _ready():
 
 func _physics_process(delta):
 	
-	
-	
 	if Input.is_action_just_pressed("slide"):
 		if not states.has("dash") and states.has("run"):
 			anim.modulate.a = 0.5
@@ -227,10 +225,10 @@ func _physics_process(delta):
 		if currentmana <= 100:
 			currentmana += 0.3
 	
-	if currentmana >= 100:
-		$"manacharge".enabled = false
-	else:
+	if currentmana < 100 and states.empty():
 		$"manacharge".enabled = true
+	else:
+		$"manacharge".enabled = false
 		
 	$"ManaBar".value = currentmana
 		
