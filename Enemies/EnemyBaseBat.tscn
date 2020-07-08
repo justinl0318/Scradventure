@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Enemies/EnemyBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/EnemyBaseBat.gd" type="Script" id=2]
+
+[node name="EnemyBaseBat" index="0" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="0"]
+enabled = true
+cast_to = Vector2( 0, 200 )
+collision_mask = 2
+
+[node name="HitBoxRange" parent="." index="2"]
+editor/display_folded = true
