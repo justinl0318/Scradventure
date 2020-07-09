@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://actors/Projectiles/Fireball.gd" type="Script" id=1]
 [ext_resource path="res://Objects/FB00_nyknck/FB001.png" type="Texture" id=2]
@@ -30,7 +30,6 @@ emission_shape = 1
 emission_sphere_radius = 10.0
 flag_disable_z = true
 gravity = Vector3( -90, 0, 0 )
-angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 100.0
@@ -38,6 +37,9 @@ linear_accel_random = 1.0
 radial_accel = 10.0
 scale = 3.5
 color_ramp = SubResource( 4 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 15.8274
 
 [node name="Fireball" type="Area2D"]
 modulate = Color( 1, 0.796078, 0.796078, 1 )
@@ -48,7 +50,7 @@ script = ExtResource( 1 )
 position = Vector2( -6.39699, 3.28028 )
 scale = Vector2( 0.82472, 1.60473 )
 frames = SubResource( 1 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -64,5 +66,11 @@ position = Vector2( -5.5188, 1.28315 )
 amount = 150
 lifetime = 1.5
 process_material = SubResource( 5 )
+
+[node name="Fireballcollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fireballcollision"]
+position = Vector2( -0.475754, 0 )
+shape = SubResource( 6 )
 [connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

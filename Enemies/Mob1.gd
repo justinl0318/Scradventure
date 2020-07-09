@@ -120,7 +120,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		if life < 1:
 			if deathTimer < 0:
 				deathTimer = maxDeathTimer
-				$"AnimatedSprite".animation = "die"
+
 				
 
 

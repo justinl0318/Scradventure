@@ -6,7 +6,7 @@ onready var tween = $"Tween"
 
 const attackCoolDownTimerMax = 100
 const hitTimerMax = 10
-const maxlife = 20.0
+var maxlife = 20.0
 const maxDamageResetTimer = 40
 const maxDeathTimer = 100
 
@@ -42,7 +42,13 @@ var attackagainBool = false
 
 var playerBossEnter = false
 
+var bossAttack = true
+var bossMoveSpeed = 1
+var bosscanAttack = true
 
+var currentAnimatedLife = animated_life
+var maxhurtTimer = 10
+var hurtTimer = 0
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -57,6 +63,30 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	lifebar.value = animated_life
+
+		
+	
+	if hitTimer > 0:
+		hitTimer -= 1
+		#add vector against player
+		#beingHitanimation
+	else:
+		_testfunction()
+		if not self.state.has("inaction"):
+			_standby()
+		#var distance = 
+		# if has state attacking and player is touching hitbox: damange
+		if attackCoolDownTimer > 0:
+			attackCoolDownTimer -= 1
+#	if currentAnimatedLife != animated_life:
+#		if hurtTimer < maxhurtTimer:
+#			hurtTimer += 1
+#			anim.animation = "hurt"
+#			vector.x = 0
+#		else:
+#			hurtTimer = 0
+#			currentAnimatedLife = animated_life
+	
 	if damageResetTimer > 0:
 		damageResetTimer -= 1
 		if damageResetTimer == 0:
@@ -73,22 +103,12 @@ func _process(delta):
 				xp.position.x = rand_range(self.position.x - 10, self.position.x + 10)
 				xp.position.y = rand_range(self.position.y - 10, self.position.y -5)
 				get_parent().add_child(xp)
-	if hitTimer > 0:
-		hitTimer -= 1
-		#add vector against player
-		#beingHitanimation
-	else:
-		_testfunction()
-		if not self.state.has("inaction"):
-			_standby()
-		#var distance = 
-		# if has state attacking and player is touching hitbox: damange
-		if attackCoolDownTimer > 0:
-			attackCoolDownTimer -= 1
+
 	if vector.x < 0:
 		anim.set_flip_h(false)
 	else:
 		anim.set_flip_h(true)
+	
 	move_and_slide(vector, vectorNormal)
 	
 	
@@ -109,20 +129,20 @@ func _standby():
 		if canAttack and attackCoolDownTimer == 0:
 			targetPlayer.beingHit()
 			targetPlayer.beingHitDamage()
+			anim.animation = "attack"
 			attackagainBool = true
 			attackCoolDownTimer = attackCoolDownTimerMax
 		
 	else:
 		patrol()
+	
 		
-	if playerBossEnter == true:
-		pass
 	
-	
-	if attackagainBool:
+	if attackagainBool and bossAttack:
 		playerEnter = false
 		attackagainTimer += 1
 		if attackagainTimer == attackagainTimerMax:
+			playerEnter = false
 			attackagainBool = false
 			attackagainTimer = 0
 		
@@ -138,18 +158,17 @@ func getHit(attackID, attackDamage):
 		if life < 1:
 			if deathTimer < 0:
 				deathTimer = maxDeathTimer
-				$"AnimatedSprite".animation = "die"
-		
+				#print(vector.x)
 
 func patrol():
 	anim.animation = "walk"
 	if walktimer >= 0:
 		walktimer -= 1
-		vector.x = -100
+		vector.x = -100 * bossMoveSpeed 
 	if walktimer == -1:
 		if walktimer2 < 300:
 			walktimer2 += 1
-			vector.x = 100		
+			vector.x = 100 * bossMoveSpeed 
 	if walktimer2 == 300:
 		change = walktimer
 		walktimer = walktimer2
@@ -203,11 +222,27 @@ func _on_HitBoxRange_area_entered(area: Area2D) -> void:
 		if life < 1:
 			if deathTimer < 0:
 				deathTimer = maxDeathTimer
-				$"AnimatedSprite".animation = "die"
+				anim.animation = "die"
+	if area.get_name() == "Fireballcollision":
+		life -= 7
+		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		if not tween.is_active():
+			tween.start()
+		if life < 1:
+			if deathTimer < 0:
+				deathTimer = maxDeathTimer
+				anim.animation = "die"
+			
+		
+
 
 
 func _on_HitBoxRange_area_exited(area: Area2D) -> void:
 	if area.get_name() == "collision":
 		canAttack = false
+		
+
+		
+
 
 

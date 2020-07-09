@@ -196,17 +196,18 @@ func _physics_process(delta):
 	
 #Portal
 	if Input.is_action_just_pressed("shootPortal"):
-		var portal = preload("res://actors/Projectiles/Portal.tscn").instance()
-		portals.append(portal)
-		if portals.size() > 2:
-			portals.front().queue_free()
-			portals.remove(0)
-		if shootingDirection == 1:
-			portal.set_portal_direction(1)
-		else:
-			portal.set_portal_direction(-1)
-		get_parent().add_child(portal)
-		portal.position = pos.global_position
+		if level >= 4:
+			var portal = preload("res://actors/Projectiles/Portal.tscn").instance()
+			portals.append(portal)
+			if portals.size() > 2:
+				portals.front().queue_free()
+				portals.remove(0)
+			if shootingDirection == 1:
+				portal.set_portal_direction(1)
+			else:
+				portal.set_portal_direction(-1)
+			get_parent().add_child(portal)
+			portal.position = pos.global_position
 
 	teleportcooldownTimer -= 1
 	if teleportcooldownTimer < 0:	
@@ -237,7 +238,7 @@ func _physics_process(delta):
 	$"level".text = str(level)
 	$"lifebar".value = life
 	if life < 0:
-		self.queue_free()
+		emit_signal("game_over")
 	
 	
 #Mana
@@ -276,6 +277,8 @@ func _physics_process(delta):
 #Animation  
 
 	var animName = "idle"
+	if states.has("hurt"):
+		animName = "hurt"
 	if states.has("run"):
 		animName = "run"
 	if states.has("jump"):
@@ -289,8 +292,7 @@ func _physics_process(delta):
 			animName = "attack" + str(attackCombo)
 	if states.has("shooting"):
 		animName = "shoot"
-	if states.has("hurt"):
-		animName = "hurt"
+	
 
 	
 	anim.animation = animName
