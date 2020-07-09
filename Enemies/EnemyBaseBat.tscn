@@ -11,5 +11,5 @@ enabled = true
 cast_to = Vector2( 0, 200 )
 collision_mask = 2
 
-[node name="HitBoxRange" parent="." index="2"]
+[node name="HitBoxRange" parent="." index="4"]
 editor/display_folded = true

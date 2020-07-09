@@ -1,10 +1,10 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://actors/Player.gd" type="Script" id=1]
-[ext_resource path="res://sprites/adventurer/adventurer-idle-00.png" type="Texture" id=2]
-[ext_resource path="res://sprites/adventurer/adventurer-idle-01.png" type="Texture" id=3]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-00.png" type="Texture" id=4]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-01.png" type="Texture" id=5]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-00.png" type="Texture" id=2]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-01.png" type="Texture" id=3]
+[ext_resource path="res://sprites/adventurer/adventurer-idle-00.png" type="Texture" id=4]
+[ext_resource path="res://sprites/adventurer/adventurer-idle-01.png" type="Texture" id=5]
 [ext_resource path="res://sprites/adventurer/adventurer-cast-00.png" type="Texture" id=6]
 [ext_resource path="res://sprites/adventurer/adventurer-cast-01.png" type="Texture" id=7]
 [ext_resource path="res://sprites/adventurer/adventurer-cast-02.png" type="Texture" id=8]
@@ -49,10 +49,13 @@
 [ext_resource path="res://sprites/adventurer/adventurer-run-03.png" type="Texture" id=47]
 [ext_resource path="res://sprites/adventurer/adventurer-run-04.png" type="Texture" id=48]
 [ext_resource path="res://sprites/adventurer/adventurer-run-05.png" type="Texture" id=49]
-[ext_resource path="res://sprites/white.png" type="Texture" id=50]
-[ext_resource path="res://Music/Copy of Full Sound Loop.wav" type="AudioStream" id=51]
-[ext_resource path="res://Music/xp.wav" type="AudioStream" id=52]
-[ext_resource path="res://Objects/white.png" type="Texture" id=53]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-00.png" type="Texture" id=50]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-01.png" type="Texture" id=51]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-02.png" type="Texture" id=52]
+[ext_resource path="res://sprites/white.png" type="Texture" id=53]
+[ext_resource path="res://Music/Copy of Full Sound Loop.wav" type="AudioStream" id=54]
+[ext_resource path="res://Music/xp.wav" type="AudioStream" id=55]
+[ext_resource path="res://Objects/white.png" type="Texture" id=56]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -65,12 +68,12 @@ glow_blend_mode = 0
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "idle",
+"name": "slide",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
-"name": "slide",
+"name": "idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
@@ -122,6 +125,11 @@ animations = [ {
 "loop": true,
 "name": "run",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -138,7 +146,7 @@ orbit_velocity_random = 0.0
 linear_accel = 25.0
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 25.6912, 33.4982 )
+extents = Vector2( 31.1797, 33.4982 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 16.3329, 28.851 )
@@ -189,7 +197,8 @@ environment = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
-animation = "attack0"
+animation = "hurt"
+frame = 1
 playing = true
 
 [node name="idleCollision" type="CollisionShape2D" parent="."]
@@ -212,13 +221,12 @@ limit_smoothed = true
 position = Vector2( 34.6812, 2.94505 )
 
 [node name="Light2D" type="Light2D" parent="."]
-visible = false
 show_behind_parent = true
 light_mask = 2
 position = Vector2( 8.30178, -6.62366 )
 scale = Vector2( 2.93836, 2.4701 )
 enabled = false
-texture = ExtResource( 50 )
+texture = ExtResource( 53 )
 energy = 1.1
 
 [node name="Particles2D" type="Particles2D" parent="."]
@@ -241,7 +249,7 @@ __meta__ = {
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-position = Vector2( 22.6677, -2.64042 )
+position = Vector2( 15.0557, -2.16468 )
 shape = SubResource( 5 )
 
 [node name="collision" type="Area2D" parent="."]
@@ -252,11 +260,11 @@ position = Vector2( -1.49475, 4.98254 )
 shape = SubResource( 6 )
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 51 )
+stream = ExtResource( 54 )
 volume_db = 10.0
 
 [node name="XP" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 52 )
+stream = ExtResource( 55 )
 volume_db = -31.301
 
 [node name="level" type="Label" parent="."]
@@ -306,7 +314,7 @@ percent_visible = false
 [node name="manacharge" type="Light2D" parent="."]
 position = Vector2( -0.606613, 4.44853 )
 scale = Vector2( 0.747242, 0.75988 )
-texture = ExtResource( 53 )
+texture = ExtResource( 56 )
 
 [node name="Xplabel" type="Label" parent="."]
 margin_left = -46.0

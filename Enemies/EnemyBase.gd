@@ -1,9 +1,14 @@
 extends KinematicBody2D
 
 onready var anim
+onready var lifebar = $"Lifebar"
+onready var tween = $"Tween"
 
 const attackCoolDownTimerMax = 100
-const hitTimerMax = 100
+const hitTimerMax = 10
+const maxlife = 20.0
+const maxDamageResetTimer = 40
+const maxDeathTimer = 100
 
 var numberOfMoves = 3
 var state = [] # attacking = damage player when touhing hitbox; inaction = currently on move; 
@@ -24,6 +29,20 @@ var change
 
 var hitTimer = 0
 
+var life = maxlife
+var lastAttackID = -1
+var damageResetTimer = -1
+var animated_life = 100
+
+var deathTimer = -1
+
+const attackagainTimerMax = 100
+var attackagainTimer = 0
+var attackagainBool = false
+
+var playerBossEnter = false
+
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -37,7 +56,23 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+	lifebar.value = animated_life
+	if damageResetTimer > 0:
+		damageResetTimer -= 1
+		if damageResetTimer == 0:
+			lastAttackID = -1
+	if deathTimer > 0:
+		anim.animation = "die"
+		vector.x = 0
+		$"AnimatedSprite".modulate.a = float(deathTimer)/maxDeathTimer
+		deathTimer -= 1
+		if deathTimer == 0:
+			queue_free()
+			for i in range(5):
+				var xp = preload("res://actors/Projectiles/XP.tscn").instance()
+				xp.position.x = rand_range(self.position.x - 10, self.position.x + 10)
+				xp.position.y = rand_range(self.position.y - 10, self.position.y -5)
+				get_parent().add_child(xp)
 	if hitTimer > 0:
 		hitTimer -= 1
 		#add vector against player
@@ -73,9 +108,37 @@ func _standby():
 		pursuit()
 		if canAttack and attackCoolDownTimer == 0:
 			targetPlayer.beingHit()
+			targetPlayer.beingHitDamage()
+			attackagainBool = true
 			attackCoolDownTimer = attackCoolDownTimerMax
+		
 	else:
 		patrol()
+		
+	if playerBossEnter == true:
+		pass
+	
+	
+	if attackagainBool:
+		playerEnter = false
+		attackagainTimer += 1
+		if attackagainTimer == attackagainTimerMax:
+			attackagainBool = false
+			attackagainTimer = 0
+		
+		
+func getHit(attackID, attackDamage):
+	if lastAttackID != attackID:
+		lastAttackID = attackID
+		life -= attackDamage
+		damageResetTimer = maxDamageResetTimer
+		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		if not tween.is_active():
+			tween.start()
+		if life < 1:
+			if deathTimer < 0:
+				deathTimer = maxDeathTimer
+				$"AnimatedSprite".animation = "die"
 		
 
 func patrol():
@@ -121,6 +184,7 @@ func _on_EnemyDetectionRange_area_entered(area: Area2D) -> void:
 	if area.get_name() == "collision":
 		playerEnter = true
 		targetPlayer = area.get_owner()
+	
 
 
 func _on_EnemyDetectionRange_area_exited(area: Area2D) -> void:
@@ -131,8 +195,19 @@ func _on_EnemyDetectionRange_area_exited(area: Area2D) -> void:
 func _on_HitBoxRange_area_entered(area: Area2D) -> void:
 	if area.get_name() == "collision":
 		canAttack = true
+	if area.get_name() == "bullet":
+		life -= 10
+		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		if not tween.is_active():
+			tween.start()
+		if life < 1:
+			if deathTimer < 0:
+				deathTimer = maxDeathTimer
+				$"AnimatedSprite".animation = "die"
 
 
 func _on_HitBoxRange_area_exited(area: Area2D) -> void:
 	if area.get_name() == "collision":
 		canAttack = false
+
+

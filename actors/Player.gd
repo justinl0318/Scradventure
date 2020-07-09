@@ -51,6 +51,9 @@ var currentmana = 0
 var life = 100
 var currentlife = 100
 
+var damageTimer = 0
+const damageTimerMax = 20
+var damageTime = false
 
 func _ready():
 	pass
@@ -100,6 +103,18 @@ func _physics_process(delta):
 
 	if states.has("attack"):
 		vector.x *= 0.1
+		
+	if damageTime:
+		if damageTimer < damageTimerMax:
+			damageTimer += 1
+			vector.x += 200 * shootingDirection * -1
+			if not states.has("hurt"):
+				states.append("hurt")
+		else:
+			damageTimer = 0
+			damageTime = false
+			if states.has("hurt"):
+				states.remove("hurt")
 
 #Process Movement
 	vector = move_and_slide(vector, floorNormal)
@@ -165,6 +180,8 @@ func _physics_process(delta):
 			states.remove("attack")
 			attackCombo = 0
 			attackBuffer = 0
+			
+	
 		
 #Shooting
 	if Input.is_action_just_pressed("fireball"):
@@ -219,11 +236,16 @@ func _physics_process(delta):
 	$"XPbar".value = currentXp
 	$"level".text = str(level)
 	$"lifebar".value = life
+	if life < 0:
+		self.queue_free()
+	
 	
 #Mana
 	if states.empty():
 		if currentmana <= 100:
 			currentmana += 0.3
+		if life <= 100:
+			life += 0.05
 	
 	if currentmana < 100 and states.empty():
 		$"manacharge".enabled = true
@@ -248,6 +270,8 @@ func _physics_process(delta):
 		
 	#$"Music".play()
 	
+	
+			
 
 #Animation  
 
@@ -265,6 +289,8 @@ func _physics_process(delta):
 			animName = "attack" + str(attackCombo)
 	if states.has("shooting"):
 		animName = "shoot"
+	if states.has("hurt"):
+		animName = "hurt"
 
 	
 	anim.animation = animName
@@ -287,15 +313,15 @@ func isInAction():
 		
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	
-	if area.get_name() == "hurtbox":
+	if area.get_name() == "HitBoxRange":
 		hitboxEnter = true
 		targetEnemy = area.get_owner()
 	#targetEnemy = area.get_owner()
 #	area.get_owner().getHit(attackCombo,attackDamge[attackCombo])
 
 func _on_hitbox_area_exited(area: Area2D) -> void:
-	hitboxEnter = false
+	if area.get_name() == "HitBoxRange":
+		hitboxEnter = false
 	
 func beingHit():
 	currentlife = life
@@ -328,6 +354,9 @@ func checklevelUp():
 		maxXp += (currentXp * 0.1)
 		currentXp = 0
 		$"XPbar".max_value = maxXp
+		
+func beingHitDamage():
+	damageTime = true
 	
 
 	

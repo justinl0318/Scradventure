@@ -94,7 +94,6 @@
 [ext_resource path="res://Particles/particles/tile090.png" type="Texture" id=92]
 [ext_resource path="res://Particles/particlePack_1.1/PNG (Transparent)/twirl_02.png" type="Texture" id=93]
 
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
@@ -215,6 +214,7 @@ scale = 0.3
 color_ramp = SubResource( 8 )
 
 [node name="Rasengan" type="KinematicBody2D"]
+collision_layer = 2
 script = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -235,14 +235,13 @@ modulate = Color( 0, 0.345098, 1, 1 )
 show_behind_parent = true
 position = Vector2( -0.778015, -2.33408 )
 frames = SubResource( 5 )
-frame = 42
+frame = 83
 speed_scale = 10.0
 playing = true
 
 [node name="bullet" type="Area2D" parent="." groups=[
 "sword1",
 ]]
-editor/display_folded = true
 
 [node name="damage" type="CollisionShape2D" parent="bullet"]
 position = Vector2( 0.194504, -0.778027 )
