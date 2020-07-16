@@ -7,6 +7,8 @@ extends "res://Enemies/EnemyBaseBat.gd"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	anim = $"AnimatedSprite"
+	collision = $"CollisionShape2D"
+	bathit = true
 	
 
 

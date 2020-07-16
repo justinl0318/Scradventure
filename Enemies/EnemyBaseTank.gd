@@ -1,32 +1,24 @@
 extends "res://Enemies/EnemyBase.gd"
 
 func _ready():
-	numberOfMoves = 3
+	pass
 	
 func pursuit():
 	vector = targetPlayer.position - self.position
-	vector.y += gravity
+	vector.y += gravity * 0.6
+	
+func patrol():
+	vector.y += gravity * 0.6
+	.patrol()
+	
+func ownProcess():
+	self.visible = true
+	.ownProcess()
 
 #		vector.x *= 3
 #		print(vector.x)
 #	move_and_slide(vector, vectorNormal)
 	
-
-func choooseAttack():
-	var random = randi()%numberOfMoves
-	# Additional logic for attack selecton
-	doAttack(random)
-	
-	
-func doAttack(attackNumber:int):
-	self.state.append("inaction")
-	match attackNumber:
-		0:
-			pass
-		1:
-			pass
-		2:
-			pass
 
 
 

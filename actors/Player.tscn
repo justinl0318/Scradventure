@@ -1,61 +1,63 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://actors/Player.gd" type="Script" id=1]
-[ext_resource path="res://sprites/adventurer/adventurer-idle-00.png" type="Texture" id=2]
-[ext_resource path="res://sprites/adventurer/adventurer-idle-01.png" type="Texture" id=3]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-00.png" type="Texture" id=4]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-01.png" type="Texture" id=5]
-[ext_resource path="res://sprites/adventurer/adventurer-cast-00.png" type="Texture" id=6]
-[ext_resource path="res://sprites/adventurer/adventurer-cast-01.png" type="Texture" id=7]
-[ext_resource path="res://sprites/adventurer/adventurer-cast-02.png" type="Texture" id=8]
-[ext_resource path="res://sprites/adventurer/adventurer-cast-03.png" type="Texture" id=9]
-[ext_resource path="res://sprites/adventurer/adventurer-jump-00.png" type="Texture" id=10]
-[ext_resource path="res://sprites/adventurer/adventurer-jump-01.png" type="Texture" id=11]
-[ext_resource path="res://sprites/adventurer/adventurer-jump-02.png" type="Texture" id=12]
-[ext_resource path="res://sprites/adventurer/adventurer-jump-03.png" type="Texture" id=13]
-[ext_resource path="res://sprites/adventurer/adventurer-run-00.png" type="Texture" id=14]
-[ext_resource path="res://sprites/adventurer/adventurer-run-01.png" type="Texture" id=15]
-[ext_resource path="res://sprites/adventurer/adventurer-run-02.png" type="Texture" id=16]
-[ext_resource path="res://sprites/adventurer/adventurer-run-03.png" type="Texture" id=17]
-[ext_resource path="res://sprites/adventurer/adventurer-run-04.png" type="Texture" id=18]
-[ext_resource path="res://sprites/adventurer/adventurer-run-05.png" type="Texture" id=19]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-00.png" type="Texture" id=20]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-01.png" type="Texture" id=21]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-02.png" type="Texture" id=22]
-[ext_resource path="res://sprites/adventurer/adventurer-attack1-00.png" type="Texture" id=23]
-[ext_resource path="res://sprites/adventurer/adventurer-attack1-01.png" type="Texture" id=24]
-[ext_resource path="res://sprites/adventurer/adventurer-attack1-02.png" type="Texture" id=25]
-[ext_resource path="res://sprites/adventurer/adventurer-attack1-03.png" type="Texture" id=26]
-[ext_resource path="res://sprites/adventurer/adventurer-attack1-04.png" type="Texture" id=27]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-00.png" type="Texture" id=28]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-01.png" type="Texture" id=29]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-00.png" type="Texture" id=30]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-01.png" type="Texture" id=31]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-02.png" type="Texture" id=32]
-[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-03.png" type="Texture" id=33]
-[ext_resource path="res://sprites/adventurer/adventurer-attack2-00.png" type="Texture" id=34]
-[ext_resource path="res://sprites/adventurer/adventurer-attack2-01.png" type="Texture" id=35]
-[ext_resource path="res://sprites/adventurer/adventurer-attack2-02.png" type="Texture" id=36]
-[ext_resource path="res://sprites/adventurer/adventurer-attack2-03.png" type="Texture" id=37]
-[ext_resource path="res://sprites/adventurer/adventurer-attack2-04.png" type="Texture" id=38]
-[ext_resource path="res://sprites/adventurer/adventurer-attack2-05.png" type="Texture" id=39]
-[ext_resource path="res://sprites/adventurer/adventurer-crouch-00.png" type="Texture" id=40]
-[ext_resource path="res://sprites/adventurer/adventurer-crouch-01.png" type="Texture" id=41]
-[ext_resource path="res://sprites/adventurer/adventurer-crouch-02.png" type="Texture" id=42]
-[ext_resource path="res://sprites/adventurer/adventurer-crouch-03.png" type="Texture" id=43]
-[ext_resource path="res://sprites/adventurer/adventurer-attack3-00.png" type="Texture" id=44]
-[ext_resource path="res://sprites/adventurer/adventurer-attack3-01.png" type="Texture" id=45]
-[ext_resource path="res://sprites/adventurer/adventurer-attack3-02.png" type="Texture" id=46]
-[ext_resource path="res://sprites/adventurer/adventurer-attack3-03.png" type="Texture" id=47]
-[ext_resource path="res://sprites/adventurer/adventurer-attack3-04.png" type="Texture" id=48]
-[ext_resource path="res://sprites/adventurer/adventurer-attack3-05.png" type="Texture" id=49]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-00.png" type="Texture" id=2]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-slide-01.png" type="Texture" id=3]
+[ext_resource path="res://sprites/adventurer/adventurer-idle-00.png" type="Texture" id=4]
+[ext_resource path="res://sprites/adventurer/adventurer-idle-01.png" type="Texture" id=5]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-00.png" type="Texture" id=6]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-01.png" type="Texture" id=7]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-hurt-02.png" type="Texture" id=8]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-00.png" type="Texture" id=9]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-01.png" type="Texture" id=10]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-02.png" type="Texture" id=11]
+[ext_resource path="res://sprites/adventurer/adventurer-cast-03.png" type="Texture" id=12]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-00.png" type="Texture" id=13]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-01.png" type="Texture" id=14]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-02.png" type="Texture" id=15]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-03.png" type="Texture" id=16]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-04.png" type="Texture" id=17]
+[ext_resource path="res://sprites/adventurer/adventurer-attack3-05.png" type="Texture" id=18]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-00.png" type="Texture" id=19]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-01.png" type="Texture" id=20]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-02.png" type="Texture" id=21]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-03.png" type="Texture" id=22]
+[ext_resource path="res://sprites/adventurer/adventurer-attack1-04.png" type="Texture" id=23]
+[ext_resource path="res://sprites/adventurer/adventurer-run-00.png" type="Texture" id=24]
+[ext_resource path="res://sprites/adventurer/adventurer-run-01.png" type="Texture" id=25]
+[ext_resource path="res://sprites/adventurer/adventurer-run-02.png" type="Texture" id=26]
+[ext_resource path="res://sprites/adventurer/adventurer-run-03.png" type="Texture" id=27]
+[ext_resource path="res://sprites/adventurer/adventurer-run-04.png" type="Texture" id=28]
+[ext_resource path="res://sprites/adventurer/adventurer-run-05.png" type="Texture" id=29]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-00.png" type="Texture" id=30]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-01.png" type="Texture" id=31]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-00.png" type="Texture" id=32]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-01.png" type="Texture" id=33]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-02.png" type="Texture" id=34]
+[ext_resource path="res://sprites/adventurer/adventurer-jump-03.png" type="Texture" id=35]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-00.png" type="Texture" id=36]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-01.png" type="Texture" id=37]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-02.png" type="Texture" id=38]
+[ext_resource path="res://sprites/adventurer/adventurer-crouch-03.png" type="Texture" id=39]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-00.png" type="Texture" id=40]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-01.png" type="Texture" id=41]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-02.png" type="Texture" id=42]
+[ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-03.png" type="Texture" id=43]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-00.png" type="Texture" id=44]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-01.png" type="Texture" id=45]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-02.png" type="Texture" id=46]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-03.png" type="Texture" id=47]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-04.png" type="Texture" id=48]
+[ext_resource path="res://sprites/adventurer/adventurer-attack2-05.png" type="Texture" id=49]
 [ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-00.png" type="Texture" id=50]
 [ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-01.png" type="Texture" id=51]
 [ext_resource path="res://sprites/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-02.png" type="Texture" id=52]
 [ext_resource path="res://sprites/white.png" type="Texture" id=53]
-[ext_resource path="res://Music/Copy of Full Sound Loop.wav" type="AudioStream" id=54]
-[ext_resource path="res://Music/xp.wav" type="AudioStream" id=55]
-[ext_resource path="res://Objects/white.png" type="Texture" id=56]
+[ext_resource path="res://Music/xp.wav" type="AudioStream" id=54]
+[ext_resource path="res://Objects/white.png" type="Texture" id=55]
+[ext_resource path="res://UI/FadeIn.tscn" type="PackedScene" id=56]
+[ext_resource path="res://Music/Rasengan Sound Effect (online-audio-converter (mp3cut.net).wav" type="AudioStream" id=57]
+[ext_resource path="res://Music/Explosion soundeffect (mp3cut.net).wav" type="AudioStream" id=58]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -68,62 +70,62 @@ glow_blend_mode = 0
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "idle",
+"name": "slide",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
-"name": "slide",
+"name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "shoot",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "jump",
-"speed": 6.0
-}, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
-"loop": true,
-"name": "run",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "shoot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "attack2",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "attack0",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 28 ), ExtResource( 29 ) ],
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 30 ), ExtResource( 31 ) ],
 "loop": true,
 "name": "airattack2",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ) ],
+"frames": [ ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ) ],
 "loop": true,
-"name": "airattack0",
-"speed": 5.0
+"name": "jump",
+"speed": 6.0
 }, {
-"frames": [ ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ],
-"loop": true,
-"name": "attack1",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ) ],
+"frames": [ ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ],
 "loop": true,
 "name": "crouch",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ) ],
+"loop": true,
+"name": "airattack0",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ) ],
 "loop": true,
-"name": "attack2",
+"name": "attack1",
 "speed": 7.0
 }, {
 "frames": [ ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ) ],
@@ -187,9 +189,10 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[node name="player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D"]
 light_mask = 2
-collision_mask = 3
+collision_layer = 33
+collision_mask = 35
 script = ExtResource( 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -199,7 +202,6 @@ environment = SubResource( 1 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
 animation = "hurt"
-frame = 2
 playing = true
 
 [node name="idleCollision" type="CollisionShape2D" parent="."]
@@ -214,8 +216,10 @@ margin_bottom = 55.7039
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-limit_top = -100
-limit_bottom = 720
+limit_left = -150
+limit_top = -60
+limit_right = 6600
+limit_bottom = 1050
 limit_smoothed = true
 
 [node name="PositionProjectile" type="Position2D" parent="."]
@@ -238,9 +242,6 @@ amount = 16
 lifetime = 5.0
 local_coords = false
 process_material = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Position2D" type="Position2D" parent="."]
 
@@ -260,15 +261,12 @@ editor/display_folded = true
 position = Vector2( -1.49475, 4.98254 )
 shape = SubResource( 6 )
 
-[node name="Music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 54 )
-volume_db = 10.0
-
 [node name="XP" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 55 )
+stream = ExtResource( 54 )
 volume_db = -31.301
 
 [node name="level" type="Label" parent="."]
+visible = false
 margin_left = -6.48219
 margin_top = -57.475
 margin_right = 13.5178
@@ -277,6 +275,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 
 [node name="lifebar" type="ProgressBar" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -290,6 +289,7 @@ value = 100.0
 percent_visible = false
 
 [node name="XPbar" type="ProgressBar" parent="."]
+visible = false
 show_behind_parent = true
 anchor_left = 1.0
 anchor_top = 1.0
@@ -303,6 +303,7 @@ custom_styles/fg = SubResource( 8 )
 percent_visible = false
 
 [node name="ManaBar" type="ProgressBar" parent="."]
+visible = false
 margin_left = -62.0
 margin_top = -67.0
 margin_right = 62.0
@@ -315,9 +316,10 @@ percent_visible = false
 [node name="manacharge" type="Light2D" parent="."]
 position = Vector2( -0.606613, 4.44853 )
 scale = Vector2( 0.747242, 0.75988 )
-texture = ExtResource( 56 )
+texture = ExtResource( 55 )
 
 [node name="Xplabel" type="Label" parent="."]
+visible = false
 margin_left = -46.0
 margin_top = -55.0376
 margin_right = -30.0
@@ -325,13 +327,25 @@ margin_bottom = -41.0376
 text = "XP"
 
 [node name="Manalabel" type="Label" parent="."]
+visible = false
 margin_left = -89.0949
 margin_top = -70.3961
 margin_right = -55.0949
 margin_bottom = -56.3961
 text = "Mana"
+
+[node name="FadeIn" parent="." instance=ExtResource( 56 )]
+
+[node name="RasenganSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 57 )
+volume_db = -15.0
+
+[node name="FireballSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 58 )
+volume_db = -15.0
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="hitbox" to="." method="_on_hitbox_area_exited"]
 [connection signal="area_entered" from="collision" to="." method="_on_collision_area_entered"]
 [connection signal="area_exited" from="collision" to="." method="_on_collision_area_exited"]
 [connection signal="body_entered" from="collision" to="." method="_on_collision_body_entered"]
+[connection signal="fade_finished" from="FadeIn" to="." method="_on_FadeIn_fade_finished"]

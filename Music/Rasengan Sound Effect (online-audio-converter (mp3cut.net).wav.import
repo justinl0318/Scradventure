@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Rasengan Sound Effect (online-audio-converter (mp3cut.net).wav-8c80dc79b25a7740cee0e9d30ee46c63.sample"
+
+[deps]
+
+source_file="res://Music/Rasengan Sound Effect (online-audio-converter (mp3cut.net).wav"
+dest_files=[ "res://.import/Rasengan Sound Effect (online-audio-converter (mp3cut.net).wav-8c80dc79b25a7740cee0e9d30ee46c63.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

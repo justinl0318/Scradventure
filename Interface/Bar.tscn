@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Interface/label_bg.png" type="Texture" id=1]
+[ext_resource path="res://Interface/bar/lifebar/label_HP.png" type="Texture" id=2]
+[ext_resource path="res://sprites/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Interface/bar/lifebar/bg.png" type="Texture" id=4]
+[ext_resource path="res://Interface/bar/lifebar/fill.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+use_mipmaps = true
+use_filter = true
+extra_spacing_bottom = -5
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+Label/colors/font_color = Color( 1, 1, 1, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = null
+Label/styles/normal = null
+
+[node name="Bar" type="HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Counter" type="NinePatchRect" parent="."]
+margin_right = 160.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 160, 0 )
+texture = ExtResource( 1 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Icon" type="TextureRect" parent="Counter"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -11.5
+margin_right = 45.0
+margin_bottom = 12.5
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Counter"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -106.0
+margin_top = -44.5
+margin_right = -7.0
+margin_bottom = 44.5
+theme = SubResource( 2 )
+text = "12/100"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = 164.0
+margin_right = 560.0
+margin_bottom = 53.0
+value = 50.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 5 )

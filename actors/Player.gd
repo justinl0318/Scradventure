@@ -22,8 +22,6 @@ var states = []
 onready var DebugLabel = $"DebugLabel"
 onready var lifebar = $"lifebar"
 
-var jumpCount = 0
-
 var shootingDirection = 1
 var shootingTimer = 0
 
@@ -49,11 +47,14 @@ var mana = 0
 var currentmana = 0
 
 var life = 100
-var currentlife = 100
+var currentlife = 100.0
 
 var damageTimer = 0
 const damageTimerMax = 20
 var damageTime = false
+
+var scene_path_to_load
+var currentlevel 
 
 func _ready():
 	pass
@@ -126,12 +127,13 @@ func _physics_process(delta):
 				
 #shooting
 	if Input.is_action_just_pressed("rasengan"):
-		if $"ManaBar".value >= 20:
+		if $"ManaBar".value >= 40 and currentlevel == "level2":
+			$RasenganSound.play()
 			if not states.has("shooting"):
 				states.append("shooting")
 				shoot()
 				mana = currentmana
-				mana -= 20
+				mana -= 40
 				$"Tween".interpolate_property(self, "currentmana", currentmana, mana, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
 				if not $"Tween".is_active():
 					$"Tween".start()
@@ -153,11 +155,8 @@ func _physics_process(delta):
 #Jump movement
 	if states.empty() or states == ["run"]:
 		if Input.is_action_pressed("ui_jump"):
-			if jumpCount < 2:
-				jumpCount += 1
-				vector.y = -jumpForce
+			vector.y = -jumpForce
 	if is_on_floor():
-		jumpCount = 0
 		if states.has("jump"):
 			states.remove("jump")
 	else:
@@ -185,18 +184,25 @@ func _physics_process(delta):
 		
 #Shooting
 	if Input.is_action_just_pressed("fireball"):
-		var fireball = Fireball.instance()
-		if shootingDirection == 1:
-			fireball.set_fireball_direction(1)
-		else:
-			fireball.set_fireball_direction(-1)
-		get_parent().add_child(fireball)
-		fireball.position = pos.global_position
+		if $"ManaBar".value >= 20:
+			$FireballSound.play()
+			mana = currentmana
+			mana -= 20
+			$"Tween".interpolate_property(self, "currentmana", currentmana, mana, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
+			if not $"Tween".is_active():
+				$"Tween".start()
+			var fireball = Fireball.instance()
+			if shootingDirection == 1:
+				fireball.set_fireball_direction(1)
+			else:
+				fireball.set_fireball_direction(-1)
+			get_parent().add_child(fireball)
+			fireball.position = pos.global_position
 
 	
 #Portal
 	if Input.is_action_just_pressed("shootPortal"):
-		if level >= 4:
+		if currentlevel == "level2":
 			var portal = preload("res://actors/Projectiles/Portal.tscn").instance()
 			portals.append(portal)
 			if portals.size() > 2:
@@ -221,6 +227,7 @@ func _physics_process(delta):
 				self.position.x = targetPortal.position.x
 				self.position.y = targetPortal.position.y - 50
 				teleportcooldownTimer = 100
+				
 					
 
 	if shootingDirection == 1:
@@ -237,8 +244,11 @@ func _physics_process(delta):
 	$"XPbar".value = currentXp
 	$"level".text = str(level)
 	$"lifebar".value = life
-	if life < 0:
-		emit_signal("game_over")
+	
+	if life <= 0:
+		$FadeIn.fade_in()
+		$FadeIn.show()
+
 	
 	
 #Mana
@@ -269,7 +279,6 @@ func _physics_process(delta):
 	else:
 		$"Light2D".enabled = false
 		
-	#$"Music".play()
 	
 	
 			
@@ -315,7 +324,7 @@ func isInAction():
 		
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
-	if area.get_name() == "HitBoxRange":
+	if area.get_name() == "HitBoxRange" or area.get_name() == "HurtBoxBoss":
 		hitboxEnter = true
 		targetEnemy = area.get_owner()
 	#targetEnemy = area.get_owner()
@@ -345,6 +354,15 @@ func _on_collision_area_entered(area: Area2D) -> void:
 	if area.get_name() == "Portalcollision":
 		touchPortal = true
 		portalname = area.get_owner()
+	if area.get_name() == "level1portalcollision":
+		get_tree().change_scene("res://levels/level2.tscn")
+		var global = get_tree().root.get_node("global")
+		global.life = life
+		global.mana = currentmana
+		global.maxxp = maxXp
+		global.xp = currentXp
+		global.level = str(level)
+
 
 func _on_collision_area_exited(area: Area2D) -> void:
 	if area.get_name() == "Portalcollision":
@@ -359,13 +377,6 @@ func checklevelUp():
 		
 func beingHitDamage():
 	damageTime = true
-	
 
-	
-		
-		
-
-
-
-
-
+func _on_FadeIn_fade_finished() -> void:
+	get_tree().change_scene("res://UI/GameOver.tscn")

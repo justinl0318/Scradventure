@@ -3,6 +3,7 @@ extends KinematicBody2D
 onready var anim
 onready var lifebar = $"Lifebar"
 onready var tween = $"Tween"
+onready var collision = $"CollisionShape2D"
 
 const attackCoolDownTimerMax = 100
 const hitTimerMax = 10
@@ -32,7 +33,8 @@ var hitTimer = 0
 var life = maxlife
 var lastAttackID = -1
 var damageResetTimer = -1
-var animated_life = 100
+var animated_life = 100.0
+var currentlife = maxlife
 
 var deathTimer = -1
 
@@ -46,14 +48,23 @@ var bossAttack = true
 var bossMoveSpeed = 1
 var bosscanAttack = true
 
-var currentAnimatedLife = animated_life
-var maxhurtTimer = 10
+var states = []
+var maxattackAnimationTime = 20
+var attackAnimationTime = 0
+
+var animName
+
+const maxhurtTimer = 30
 var hurtTimer = 0
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var direction
 
+var MaxspawnsmallMobTimer
+var spawnsmallMobTimer
+
+var maxattackstopTimer = 30
+var attackstopTimer = -1
+var bathit = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -62,9 +73,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	ownProcess()
+	
+
+func ownProcess():
+	self.visible = true
+	if not states.has("Walk"):
+		states.append("Walk")
 	lifebar.value = animated_life
 
-		
+#	print("life: ", life)
+#	print("currentlife", currentlife)
 	
 	if hitTimer > 0:
 		hitTimer -= 1
@@ -78,39 +97,81 @@ func _process(delta):
 		# if has state attacking and player is touching hitbox: damange
 		if attackCoolDownTimer > 0:
 			attackCoolDownTimer -= 1
-#	if currentAnimatedLife != animated_life:
-#		if hurtTimer < maxhurtTimer:
-#			hurtTimer += 1
-#			anim.animation = "hurt"
-#			vector.x = 0
-#		else:
-#			hurtTimer = 0
-#			currentAnimatedLife = animated_life
-	
+		if attackstopTimer > 0:
+			vector.x = sign(vector.x)
+			attackstopTimer -= 1
+			
+	if bossAttack:
+		if currentlife != life:
+			if hurtTimer < maxhurtTimer:
+				if not states.has("Hurt"):
+					states.append("Hurt")
+				vector.x = sign(vector.x)
+				hurtTimer += 1
+			else:
+				currentlife = life
+				if states.has("Hurt"):
+					states.remove(states.find("Hurt"))
+				hurtTimer = 0
+
+
 	if damageResetTimer > 0:
 		damageResetTimer -= 1
 		if damageResetTimer == 0:
 			lastAttackID = -1
-	if deathTimer > 0:
-		anim.animation = "die"
-		vector.x = 0
-		$"AnimatedSprite".modulate.a = float(deathTimer)/maxDeathTimer
-		deathTimer -= 1
-		if deathTimer == 0:
-			queue_free()
-			for i in range(5):
-				var xp = preload("res://actors/Projectiles/XP.tscn").instance()
-				xp.position.x = rand_range(self.position.x - 10, self.position.x + 10)
-				xp.position.y = rand_range(self.position.y - 10, self.position.y -5)
-				get_parent().add_child(xp)
+	if bossAttack:
+		if deathTimer > 0:
+			$HitBoxRange/HitBoxCollision.disabled = true
+			collision.disabled = true
+			vector.x = 0
+			vector.y = 0
+			anim.modulate.a = float(deathTimer)/maxDeathTimer
+			deathTimer -= 1
+			if deathTimer == 70:
+				if states.has("Die"):
+					states.remove(states.find("Die"))
+			if deathTimer == 0:
+				self.queue_free()
+				for i in range(5):
+					var xp = preload("res://actors/Projectiles/XP.tscn").instance()
+					xp.position.x = rand_range(self.position.x - 10, self.position.x + 10)
+					xp.position.y = rand_range(self.position.y - 10, self.position.y -5)
+					get_parent().add_child(xp)
+		else:
+			$HitBoxRange/HitBoxCollision.disabled = false
+			collision.disabled = false
 
-	if vector.x < 0:
-		anim.set_flip_h(false)
-	else:
-		anim.set_flip_h(true)
+
+		
+	if life <= 0:
+		if not states.has("Die"):
+			states.append("Die")
 	
 	move_and_slide(vector, vectorNormal)
 	
+	
+	if states.has("Walk"):
+		#anim.animation = "walk"
+		animName = "walk"
+	if states.has("Hurt"):
+		#anim.animation = "hurt"
+		animName = "hurt"
+	if states.has("Attack"):
+		#anim.animation = "attack"
+		animName = "attack"
+	if states.has("Die"):
+		#anim.animation = "die"
+		animName = "die"
+	$AnimatedSprite.animation = animName
+	#$"AnimatedSprite".animation = animName
+	
+	if bossAttack:
+		if vector.x < 0:
+			anim.set_flip_h(false)
+			direction = -1
+		else:
+			anim.set_flip_h(true)
+			direction = 1
 	
 	
 func _testfunction():
@@ -118,35 +179,31 @@ func _testfunction():
 	pass
 	
 func _standby():
-	# if player range less than detectionRange:
-		# pursuit
-		# if player range less than actionRange:
-			# chooseAttack()
-	# else:
-		# patrol
 	if playerEnter == true:
 		pursuit()
 		if canAttack and attackCoolDownTimer == 0:
 			targetPlayer.beingHit()
 			targetPlayer.beingHitDamage()
-			anim.animation = "attack"
+			if not states.has("Attack"):
+				states.append("Attack")	
+			if bathit:
+				playerEnter = false
 			attackagainBool = true
 			attackCoolDownTimer = attackCoolDownTimerMax
+			attackstopTimer = maxattackstopTimer
 		
 	else:
 		patrol()
 	
-		
-	
-	if attackagainBool and bossAttack:
-		playerEnter = false
-		attackagainTimer += 1
-		if attackagainTimer == attackagainTimerMax:
-			playerEnter = false
-			attackagainBool = false
-			attackagainTimer = 0
-		
-		
+	if states.has("Attack"):
+		if attackAnimationTime < maxattackAnimationTime:
+			attackAnimationTime += 1
+			anim.animation = "attack"			
+		else:
+			if states.has("Attack"):
+				states.remove(states.find("Attack"))
+			attackAnimationTime = 0
+			
 func getHit(attackID, attackDamage):
 	if lastAttackID != attackID:
 		lastAttackID = attackID
@@ -161,10 +218,9 @@ func getHit(attackID, attackDamage):
 				#print(vector.x)
 
 func patrol():
-	anim.animation = "walk"
 	if walktimer >= 0:
 		walktimer -= 1
-		vector.x = -100 * bossMoveSpeed 
+		vector.x = -100 * bossMoveSpeed
 	if walktimer == -1:
 		if walktimer2 < 300:
 			walktimer2 += 1
@@ -173,12 +229,11 @@ func patrol():
 		change = walktimer
 		walktimer = walktimer2
 		walktimer2 = change
+		
 
 
 
 func pursuit():
-#	vector = targetPlayer.position - self.position
-#	move_and_slide(vector, vectorNormal)
 	pass
 
 func choooseAttack():
@@ -215,7 +270,7 @@ func _on_HitBoxRange_area_entered(area: Area2D) -> void:
 	if area.get_name() == "collision":
 		canAttack = true
 	if area.get_name() == "bullet":
-		life -= 10
+		life -= 10.0
 		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		if not tween.is_active():
 			tween.start()
@@ -224,7 +279,8 @@ func _on_HitBoxRange_area_entered(area: Area2D) -> void:
 				deathTimer = maxDeathTimer
 				anim.animation = "die"
 	if area.get_name() == "Fireballcollision":
-		life -= 7
+		life -= 5.0
+		print(life)
 		tween.interpolate_property(self, "animated_life", animated_life, int(life/maxlife*100), 0.6, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		if not tween.is_active():
 			tween.start()

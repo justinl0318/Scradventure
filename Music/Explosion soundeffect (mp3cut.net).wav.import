@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Explosion soundeffect (mp3cut.net).wav-18e5b021f43ead89482ec59cc9abd8c7.sample"
+
+[deps]
+
+source_file="res://Music/Explosion soundeffect (mp3cut.net).wav"
+dest_files=[ "res://.import/Explosion soundeffect (mp3cut.net).wav-18e5b021f43ead89482ec59cc9abd8c7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

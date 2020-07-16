@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Interface/Allbar.gd" type="Script" id=1]
+[ext_resource path="res://levels/MarginContainer.gd" type="Script" id=2]
+[ext_resource path="res://sprites/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Interface/InterfaceBar/LifeBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Interface/bar/energybar/bg.png" type="Texture" id=5]
+[ext_resource path="res://Interface/bar/energybar/fill.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+extra_spacing_top = 10
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 25
+extra_spacing_top = 13
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 30
+font_data = ExtResource( 3 )
+
+[node name="Interface" type="CanvasLayer"]
+layer = 5
+script = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1270.0
+margin_bottom = 710.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+editor/display_folded = true
+margin_right = 84.0
+margin_bottom = 700.0
+alignment = 2
+
+[node name="Stat01" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 668.0
+margin_right = 84.0
+margin_bottom = 682.0
+text = "that is stat01"
+
+[node name="Stat02" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 686.0
+margin_right = 84.0
+margin_bottom = 700.0
+text = "that is stat02"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1270.0
+margin_bottom = 710.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer2"]
+editor/display_folded = true
+margin_right = 46.0
+margin_bottom = 700.0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer2/VBoxContainer2"]
+margin_right = 46.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 1 )
+text = "HP"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer2/VBoxContainer2"]
+margin_top = 42.0
+margin_right = 46.0
+margin_bottom = 73.0
+custom_fonts/font = SubResource( 2 )
+text = "Mana"
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer2/VBoxContainer2"]
+margin_top = 77.0
+margin_right = 46.0
+margin_bottom = 122.0
+custom_fonts/font = SubResource( 3 )
+text = "XP"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer2"]
+margin_left = 50.0
+margin_right = 298.0
+margin_bottom = 700.0
+
+[node name="LifeBar" parent="MarginContainer/HBoxContainer2/VBoxContainer" instance=ExtResource( 4 )]
+script = null
+
+[node name="ManaBar" type="TextureProgress" parent="MarginContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 44.0
+margin_right = 248.0
+margin_bottom = 84.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+
+[node name="XPBar" type="TextureProgress" parent="MarginContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 88.0
+margin_right = 248.0
+margin_bottom = 128.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer2/VBoxContainer/XPBar"]
+margin_left = 112.593
+margin_top = 0.751374
+margin_right = 152.593
+margin_bottom = 38.7514
+custom_fonts/font = SubResource( 4 )
+text = "1"

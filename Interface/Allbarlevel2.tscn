@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Interface/Allbar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Interface/Allbarlevel2.gd" type="Script" id=2]
+
+[node name="Allbarlevel2" index="0" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
