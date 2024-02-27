@@ -21,5 +21,5 @@ At level 2, there are two bosses who have higher attack speed, damage, and healt
 
 ---
 
-Game link (itch.io): [https://jlee0318.itch.io/scradventure](url)  
-Youtube tutorial: [https://www.youtube.com/watch?v=Vs9RoR2L39I](url)
+Game link (itch.io): [https://jlee0318.itch.io/scradventure](https://jlee0318.itch.io/scradventure)  
+Youtube tutorial: [https://www.youtube.com/watch?v=Vs9RoR2L39I](https://www.youtube.com/watch?v=Vs9RoR2L39I)
